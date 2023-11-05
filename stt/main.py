@@ -33,15 +33,14 @@ async def transcribe_post(model: WhisperModel, request: web.Request) -> web.Stre
     logger.debug(
         f"Detected language '{info.language}' with probability {info.language_probability}")
 
-    segments_result = list()
-
-    for segment in segments:
-        segments_result.append({
+    segments_result = [
+        {
             'text': segment.text,
             'start': segment.start,
             'end': segment.end,
-        })
-
+        }
+        for segment in segments
+    ]
 ### OUTPUT can go anywhere besides back to sender...
 ### ->
     # return transcripted_text and correct_text as json
